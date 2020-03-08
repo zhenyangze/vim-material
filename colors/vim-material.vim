@@ -1,10 +1,10 @@
 " -----------------------------------------------------------------------------
 " File: vim-material.vim
-" Description: A equinusocio's Material Theme porting
+" Description: equinusocio's Material Theme porting
 " Porting From: https://github.com/equinusocio/vsc-material-theme
 " Author: hzchris <hzchirs@gmail.com>
 " Source: https://github.com/hzchirs/vim-material
-" Last Modified: 15 October 2018
+" Last Modified: 10 February 2019
 " -----------------------------------------------------------------------------
 
 if version > 580
@@ -97,14 +97,15 @@ if has("nvim")
 endif
 
 " Editor colors
-call s:hi("ColorColumn",  s:gui.none,       s:gui.background,       "", "", "")
+call s:hi("ColorColumn",  s:gui.none,       s:gui.line,       "", "", "")
 call s:hi("Cursor",       s:gui.yellow,     "",               "", "", "")
-call s:hi("CursorColumn", s:gui.none,       s:gui.background,       "", "", "")
+call s:hi("CursorColumn", s:gui.none,       s:gui.line,       "", "", "")
 call s:hi("LineNr",       s:gui.comment,    "",               "", "", "")
 call s:hi("CursorLine",   s:gui.none,       s:gui.none,       "", "", "")
 call s:hi("CursorLineNr", s:gui.cyan,       s:gui.background,       "", "", "")
 call s:hi("Directory",    s:gui.blue,       "",               "", "", "")
 call s:hi("FoldColumn",   "",               s:gui.background, "", "", "")
+call s:hi("SignColumn",   "",               s:gui.selection, "", "", "")
 call s:hi("Folded",       s:gui.comment,    s:gui.line,       "", "", "")
 call s:hi("PMenu",        s:gui.foreground, s:gui.line,       "", "", "")
 call s:hi("PMenuSel",     s:gui.cyan,       s:gui.selection,  "", "", "bold")
@@ -123,11 +124,15 @@ call s:hi("DiffDelete", s:gui.red, s:gui.background, "", "", "")
 call s:hi("DiffText",   "",        s:gui.selection,  "", "", "")
 
 
+call s:hi("TabLine",   "",        s:gui.selection,  "", "", "")
+call s:hi("TabLineFill",   s:gui.selection,        "",  "", "", "")
+call s:hi("TabLineSel",   "",        s:gui.cyan,  "", "", "")
+
 call s:hi("NonText",     s:gui.comment,    "",               "", "", "")
 call s:hi("helpExample", s:gui.blue,       "",               "", "", "")
 call s:hi("MatchParen",  "",               s:gui.selection,  "", "", "")
 call s:hi("Title",       s:gui.cyan,       "",               "", "", "")
-"call s:hi("Comment",     s:gui.background,  s:gui.comment,               "", "", "italic")
+call s:hi("Comment",     s:gui.background,    "",               "", "", "italic")
 call s:hi("String",      s:gui.green,      "",               "", "", "")
 call s:hi("Normal",      s:gui.foreground, s:gui.background, "", "", "")
 call s:hi("Visual",      "",               s:gui.selection,  "", "", "")
@@ -143,23 +148,20 @@ call s:hi("Number",      s:gui.orange,     "",               "", "", "")
 call s:hi("Identifier",  s:gui.pink,       "",               "", "", "")
 call s:hi("Operator",    s:gui.cyan,       "",               "", "", "")
 call s:hi("PreProc",     s:gui.blue,       "",               "", "", "")
-call s:hi("Search",      s:gui.none,       s:gui.none,       "", "", "")
+call s:hi("Search",      s:gui.none,       s:gui.none,       "", "", "underline")
 call s:hi("InSearch",    s:gui.background, s:gui.foreground, "", "", "")
 call s:hi("Todo",        s:gui.red,        s:gui.foreground, "", "", "reverse")
 call s:hi("Special",     s:gui.orange,     "",               "", "", "")
-call s:hi("TabLine",     s:gui.comment,    s:gui.selection,            "", "", "")
-call s:hi("TabLineSel",  s:gui.background, s:gui.comment,              "", "", "")
-call s:hi("TabLineFill", s:gui.selection,  s:gui.background,           "", "", "")
-call s:hi("SignColumn",  s:gui.comment,    s:gui.background,           "", "", "")
-call s:hi("Pmenu",       s:gui.none,       s:gui.selection,            "", "", "")
-call s:hi("StatusLineTermNC",       s:gui.none,       s:gui.selection,            "", "", "")
 
 
 " Ruby colors
-call s:hi("rubySymbolDelimiter", s:gui.cyan,   "", "", "", "")
-call s:hi("rubyKeywordAsMethod", s:gui.blue,   "", "", "", "")
-call s:hi("rubyConstant",        s:gui.yellow, "", "", "", "")
 call s:hi("rubyClassName",       s:gui.yellow, "", "", "", "bold")
+call s:hi("rubyConstant",        s:gui.yellow, "", "", "", "")
+call s:hi("rubyKeywordAsMethod", s:gui.blue,   "", "", "", "")
+call s:hi("rubyOperator",        s:gui.purple, "", "", "", "")
+call s:hi("rubyPseudoVariable",  s:gui.red,   "", "", "", "italic")
+call s:hi("rubySymbol",          s:gui.orange,   "", "", "", "")
+call s:hi("rubySymbolDelimiter", s:gui.cyan,   "", "", "", "")
 
 "eRuby colors
 call s:hi("eRubyDelimiter", s:gui.cyan, "", "", "", "")
@@ -180,22 +182,48 @@ call s:hi("javascriptFuncKeyword",      s:gui.purple,     "", "", "", "")
 call s:hi("javascriptIdentifierName",   s:gui.foreground, "", "", "", "")
 call s:hi("javascriptLabel",            s:gui.foreground, "", "", "", "")
 call s:hi("javascriptMethod",           s:gui.blue,       "", "", "", "")
-call s:hi("javascriptObjectMethodName", s:gui.blue,       "", "", "", "")
 call s:hi("javascriptObjectLabel",      s:gui.foreground, "", "", "", "")
 call s:hi("javascriptObjectLabelColon", s:gui.cyan,       "", "", "", "")
+call s:hi("javascriptObjectMethodName", s:gui.blue,       "", "", "", "")
 call s:hi("javascriptOperator",         s:gui.purple,     "", "", "", "")
 call s:hi("javascriptProperty",         s:gui.cyan,       "", "", "", "")
 call s:hi("javascriptStringMethod",     s:gui.blue,       "", "", "", "")
 call s:hi("javascriptVariable",         s:gui.purple,     "", "", "", "")
 
 " vim-javascript
-call s:hi("jsArrowFunction", s:gui.cyan,       "", "", "", "")
-call s:hi("jsFunction",      s:gui.purple,     "", "", "", "")
-call s:hi("jsFuncCall",      s:gui.blue,       "", "", "", "")
-call s:hi("jsNoise",         s:gui.cyan,       "", "", "", "")
-call s:hi("jsOperator",      s:gui.purple,     "", "", "", "")
-call s:hi("jsParens",        s:gui.foreground, "", "", "", "")
-call s:hi("jsStorageClass",  s:gui.purple,     "", "", "", "")
+call s:hi("jsArrowFuncArgs",   s:gui.red,     "", "", "", "")
+call s:hi("jsArrowFunction",   s:gui.purple,       "", "", "", "")
+call s:hi("jsBooleanFalse",    s:gui.orange,       "", "", "", "")
+call s:hi("jsBooleanTrue",     s:gui.orange,       "", "", "", "")
+call s:hi("jsClassBraces",     s:gui.cyan,       "", "", "", "")
+call s:hi("jsClassDefinition", s:gui.yellow,       "", "", "", "")
+call s:hi("jsClassKeyword",    s:gui.purple,       "", "", "", "")
+call s:hi("jsConditional",     s:gui.cyan,       "", "", "", "italic")
+call s:hi("jsFuncArgs",        s:gui.red,     "", "", "", "")
+call s:hi("jsFuncBraces",      s:gui.cyan,     "", "", "", "")
+call s:hi("jsFuncCall",        s:gui.blue,       "", "", "", "")
+call s:hi("jsFuncParens",      s:gui.cyan,     "", "", "", "")
+call s:hi("jsFunction",        s:gui.purple,     "", "", "", "")
+call s:hi("jsFunctionKey",     s:gui.blue,     "", "", "", "")
+call s:hi("jsGlobalObjects",   s:gui.yellow,       "", "", "", "")
+call s:hi("jsNoise",           s:gui.cyan,       "", "", "", "")
+call s:hi("jsObjectKey",       s:gui.foreground,     "", "", "", "")
+call s:hi("jsOperator",        s:gui.purple,     "", "", "", "")
+call s:hi("jsParens",          s:gui.cyan, "", "", "", "")
+call s:hi("jsReturn",          s:gui.cyan,       "", "", "", "italic")
+call s:hi("jsStorageClass",    s:gui.purple,     "", "", "", "")
+call s:hi("jsThis",            s:gui.red,     "", "", "", "italic")
+
+" yats
+call s:hi("typescriptAccessibilityModifier", s:gui.purple, "", "", "", "")
+call s:hi("typescriptCall",                  s:gui.pink, "", "", "", "")
+call s:hi("typescriptClassName",             s:gui.yellow, "", "", "", "")
+call s:hi("typescriptExport",                s:gui.blue, "", "", "", "")
+call s:hi("typescriptImport",                s:gui.blue, "", "", "", "")
+call s:hi("typescriptInterfaceName",         s:gui.yellow, "", "", "", "")
+call s:hi("typescriptPredefinedType",        s:gui.pale_blue, "", "", "", "")
+call s:hi("typescriptVariable",              s:gui.purple, "", "", "", "")
+call s:hi("typescriptOperator",              s:gui.purple, "", "", "", "")
 
 " HTML colors
 call s:hi("htmlTag",            s:gui.cyan,   "", "", "", "")
@@ -208,4 +236,10 @@ call s:hi("htmlArg",            s:gui.yellow, "", "", "", "")
 call s:hi("xmlTag",     s:gui.cyan,   "", "", "", "")
 call s:hi("xmlEndTag",  s:gui.cyan,   "", "", "", "")
 call s:hi("xmlTagName", s:gui.red,    "", "", "", "")
-call s:hi("xmlAttrib", s:gui.yellow, "", "", "", "")
+call s:hi("xmlAttrib",  s:gui.yellow, "", "", "", "")
+
+" Pmenu
+call s:hi("Pmenu", "", s:gui.selection, "", "", "")
+call s:hi("PmenuThumb", "", s:gui.selection, "", "", "")
+call s:hi("StatusLineTerm", "", s:gui.selection, "", "", "")
+call s:hi("StatusLineTermNC", "", s:gui.selection, "", "", "")
